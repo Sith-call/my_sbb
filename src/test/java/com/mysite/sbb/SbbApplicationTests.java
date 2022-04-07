@@ -22,10 +22,9 @@ class SbbApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Optional<Answer> oa = this.answerRepository.findById(1);
-		assertTrue(oa.isPresent());
-		Answer a = oa.get();
-		Question q = a.getQuestion();
+		Optional<Question> oq = this.questionRepository.findById(1);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
 		
 		List<Answer> answerList = q.getAnswerList();
 		

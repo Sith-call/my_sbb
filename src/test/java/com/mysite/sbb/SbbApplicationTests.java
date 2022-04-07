@@ -3,6 +3,7 @@ package com.mysite.sbb;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -14,15 +15,21 @@ class SbbApplicationTests {
 	
 	@Autowired
 	private QuestionRepository questionRepository;
+	
+	@Autowired
+	private AnswerRepository answerRepository;
 
 	@Test
 	void contextLoads() {
-		assertEquals(2, this.questionRepository.count());
-		Optional<Question> oq = this.questionRepository.findById(1);
-		assertTrue(oq.isPresent()); // Optional 객체를 통해 null 값 확인
+		Optional<Question> oq = this.questionRepository.findById(2);
+		assertTrue(oq.isPresent());
 		Question q = oq.get();
-		this.questionRepository.delete(q);
-		assertEquals(1, this.questionRepository.count());
+		
+		Answer a = new Answer();
+		a.setContent("네 자동으로 생성됩니다.");
+		a.setQuestion(q); // 어떤 질문의 답변인지 알기 위해서 Question 객체가 필요하다.
+		a.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(a);
 	}
 
 }

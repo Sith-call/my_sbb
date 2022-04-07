@@ -18,7 +18,7 @@ class SbbApplicationTests {
 	@Autowired
 	private QuestionRepository questionRepository;
 	
-	//@Transactional
+	@Transactional
 	@Test
 	void contextLoads() {
         Optional<Question> oq = this.questionRepository.findById(2);
